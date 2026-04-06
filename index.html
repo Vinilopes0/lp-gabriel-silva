@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loja Vencedora — Loja Gringa Pronta</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #d7fe2d;
+    --gold-dark: #a6c523;
+    --orange: #FF6B00;
+    --green: #00E676;
+    --red: #E53935;
+    
+    /* Surface Elevation System */
+    --surface-0: #050505; /* Base page */
+    --surface-1: #0A0A0A; /* First elevation */
+    --surface-2: #111111; /* Cards */
+    --surface-3: #181818; /* Hover states or highest elements */
+
+    --bg: var(--surface-0);
+    --bg2: var(--surface-1);
+    --bg3: var(--surface-2);
+    
+    --text: #F0EDE6;
+    --muted: #888;
+    
+    /* Border System */
+    --border-subtle: rgba(255, 255, 255, 0.04);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-emphasis: rgba(215, 254, 45, 0.15); /* Gold border for emphasis */
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--surface-0);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── ANNOUNCEMENT BAR ── */
+  .bar {
+    background: var(--red);
+    text-align: center;
+    padding: 10px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: .78rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    position: sticky; top: 0; z-index: 100;
+    animation: pulse-bar 2s ease-in-out infinite;
+  }
+  @keyframes pulse-bar {
+    0%,100% { background: #C62828; }
+    50% { background: #E53935; }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    align-items: flex-start;
+    overflow: hidden;
+    background: url('https://i.imgur.com/ktkSb3K.png') center/cover no-repeat;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: none;
+    pointer-events: none;
+  }
+
+  .hero-noise {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(215,254,45,.18) 0%, transparent 70%);
+    right: -100px; top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .hero-orders {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 50%;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: .25;
+  }
+
+  .order-card {
+    position: absolute;
+    background: var(--surface-2);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: .75rem;
+    white-space: nowrap;
+    animation: float-card linear infinite;
+  }
+  .order-card .dot { width:8px; height:8px; border-radius:50%; background:var(--green); flex-shrink:0; }
+  .order-card span { color: #aaa; }
+  .order-card strong { color: #fff; }
+
+  @keyframes float-card {
+    from { transform: translateY(110vh); opacity:0; }
+    10% { opacity:1; }
+    90% { opacity:1; }
+    to { transform: translateY(-10vh); opacity:0; }
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0;
+    padding: 46px 40px 80px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(215,254,45,.1);
+    border: 1px solid rgba(215,254,45,.3);
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+  .hero-badge::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--gold); animation: blink 1.2s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 5vw, 5rem);
+    line-height: 1.0;
+    letter-spacing: .02em;
+    margin-bottom: 16px;
+  }
+  .hero h1 em { font-style: normal; color: var(--gold); }
+
+  .hero-sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.05rem;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 24px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .hero-checks {
+    list-style: none;
+    margin-bottom: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .hero-checks li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: .92rem;
+    color: #ccc;
+  }
+  .hero-checks li::before {
+    content: '✓';
+    width: 22px; height: 22px;
+    background: rgba(0,230,118,.15);
+    border: 1px solid rgba(0,230,118,.4);
+    border-radius: 50%;
+    display: flex; align-items:center; justify-content:center;
+    font-size: .7rem;
+    color: var(--green);
+    flex-shrink: 0;
+  }
+
+  .btn-main {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    color: #000;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: 20px 48px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: all .3s ease;
+    box-shadow: 0 10px 30px rgba(215,254,45,.2);
+  }
+  .btn-main:hover { 
+    transform: translateY(-3px); 
+    box-shadow: 0 15px 40px rgba(215,254,45,.4); 
+    background: linear-gradient(135deg, #ecff86 0%, var(--gold) 100%);
+  }
+
+  /* ── HERO CARD (right col) ── */
+  .hero-card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
+  }
+  .hero-card-label {
+    font-size: .7rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .hero-card-price-old {
+    font-size: 1rem;
+    color: var(--red);
+    text-decoration: line-through;
+    margin-bottom: 4px;
+  }
+  .hero-card-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hero-card-price span { font-family:'Montserrat'; font-size:1.4rem; }
+  .hero-card-saving {
+    font-size: .8rem;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .hero-card-saving strong { color: var(--gold); }
+  .hero-card-divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+  .hero-card-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .hero-card-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: .85rem;
+    color: #bbb;
+  }
+  .hero-card-features li .icon { font-size: 1rem; }
+  .hero-card-trust {
+    display: flex;
+    gap: 12px;
+    font-size: .72rem;
+    color: var(--muted);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-card-trust span { display:flex; align-items:center; gap:4px; }
+
+  /* ── SECTION BASE ── */
+  section { padding: 90px 40px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .bg-wave {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .bg-wave > .container {
+    position: relative;
+    z-index: 2;
+  }
+  .bg-wave::before,
+  .bg-wave::after {
+    content: '';
+    position: absolute;
+    inset: -25% -12%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .bg-wave::before {
+    background:
+      radial-gradient(120% 70% at 20% 20%, rgba(255,255,255,.08), transparent 62%),
+      radial-gradient(130% 80% at 80% 78%, rgba(215,254,45,.08), transparent 64%),
+      repeating-linear-gradient(102deg, rgba(255,255,255,.08) 0 1px, transparent 1px 12px);
+    opacity: .23;
+    transform: rotate(-8deg) scale(1.08);
+  }
+  .bg-wave::after {
+    background:
+      repeating-linear-gradient(-68deg, rgba(255,255,255,.08) 0 1px, transparent 1px 10px),
+      radial-gradient(75% 55% at 85% 0%, rgba(0,0,0,.45), transparent 75%);
+    opacity: .18;
+    transform: rotate(6deg) scale(1.08);
+    mix-blend-mode: screen;
+  }
+  .bg-wave-gold {
+    background:
+      radial-gradient(130% 90% at 6% 15%, rgba(215,254,45,.16), transparent 60%),
+      linear-gradient(180deg, #0a0a0a 0%, #101010 100%);
+  }
+  .bg-wave-deep {
+    background:
+      radial-gradient(95% 60% at 90% 10%, rgba(255,255,255,.08), transparent 60%),
+      radial-gradient(110% 80% at 14% 85%, rgba(215,254,45,.1), transparent 62%),
+      linear-gradient(180deg, #070707 0%, #111 100%);
+  }
+  .bg-wave-soft {
+    background:
+      radial-gradient(90% 70% at 50% 0%, rgba(215,254,45,.12), transparent 64%),
+      linear-gradient(180deg, #0b0b0b 0%, #141414 100%);
+  }
+  .section-label {
+    font-size: .72rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.2rem, 4vw, 3.6rem);
+    letter-spacing: .02em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .section-sub { color: var(--muted); font-size: .95rem; max-width: 520px; line-height: 1.7; }
+
+  /* ── STEPS ── */
+  .steps-section { background: linear-gradient(180deg, var(--surface-0) 0%, var(--surface-1) 100%); }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 52px;
+  }
+  .step-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .3s, transform .3s;
+  }
+  .step-card:hover { border-color: rgba(215,254,45,.45); transform: translateY(-4px); }
+  .step-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--orange));
+  }
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4.5rem;
+    color: rgba(215,254,45,.08);
+    position: absolute;
+    right: 20px; top: 10px;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .step-icon {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .step-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: var(--gold);
+  }
+  .step-card p { font-size: .88rem; color: #999; line-height: 1.65; }
+
+  /* ── PROOF / STATS ── */
+  .proof-section { background: var(--surface-1); }
+  .proof-inner {
+    background: rgba(215,254,45,.04);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .dashboard-mock {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    font-size: .78rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,.3);
+  }
+  .dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .dash-header span { color: var(--muted); font-size:.72rem; }
+  .dash-metric { margin-bottom: 6px; }
+  .dash-metric .label { color: var(--muted); font-size: .7rem; margin-bottom: 2px; }
+  .dash-metric .val {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #fff;
+  }
+  .dash-metric .val .up { color: var(--green); font-size: .75rem; margin-left: 4px; }
+  .dash-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .dash-mini {
+    background: var(--surface-3);
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid var(--border-subtle);
+  }
+  .dash-mini .lbl { color: var(--muted); font-size: .65rem; margin-bottom: 4px; }
+  .dash-mini .v { font-weight: 700; color: #fff; font-size: .9rem; }
+
+  .proof-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .proof-text h2 em { color: var(--gold); font-style:normal; }
+  .proof-text p { color: #999; font-size: .9rem; line-height: 1.7; margin-bottom: 14px; }
+  .proof-bullets {
+    list-style: none;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .proof-bullets li {
+    position: relative;
+    padding-left: 24px;
+    font-size: .88rem;
+    color: #bbb;
+    line-height: 1.6;
+  }
+  .proof-bullets li::before {
+    content:'👉';
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testi-section { background: var(--surface-0); overflow: hidden; }
+  .testi-carousel-wrapper {
+    position: relative;
+    max-width: 1200px; /* Aumentado para acomodar 3 */
+    margin: 48px auto 0;
+  }
+  .testi-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    gap: 12px;
+    padding-bottom: 20px; /* Espaço para o box-shadow não cortar */
+  }
+  .testi-carousel::-webkit-scrollbar { display: none; }
+  .testi-slide {
+    flex: 0 0 calc(33.333% - 8px); /* Mostra 3 itens considerando o gap */
+    scroll-snap-align: start;
+    display: flex;
+    justify-content: center;
+  }
+  .testi-img {
+    width: 60%;
+    height: auto;
+    border-radius: 16px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 10px 30px rgba(0,0,0,.3);
+    object-fit: contain;
+    display: block;
+  }
+  @media (max-width: 900px) {
+    .testi-slide { flex: 0 0 calc(50% - 6px); } /* 2 em tablets */
+  }
+  @media (max-width: 600px) {
+    .testi-slide { flex: 0 0 100%; } /* 1 em celulares */
+  }
+  .carousel-nav {
+    position: absolute;
+    top: 50%;
+    left: -60px; right: -60px;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+  .nav-btn {
+    pointer-events: auto;
+    background: var(--surface-2);
+    border: 1px solid var(--border-subtle);
+    color: var(--gold);
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all .2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,.3);
+  }
+  .nav-btn:hover { background: var(--surface-3); transform: scale(1.1); color: #fff; }
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: background .3s;
+  }
+  .dot.active { background: var(--gold); }
+
+  /* ── PRODUCT / STORE ── */
+  .product-section { background: var(--surface-1); }
+  .product-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .store-mock {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  }
+  .store-mock-header {
+    background: var(--surface-2);
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .store-mock-header .dots { display:flex; gap:5px; }
+  .store-mock-header .dots span { width:9px; height:9px; border-radius:50%; }
+  .store-mock-header .dots span:nth-child(1) { background:#E53935; }
+  .store-mock-header .dots span:nth-child(2) { background:var(--gold); }
+  .store-mock-header .dots span:nth-child(3) { background:var(--green); }
+  .store-mock-header .url {
+    flex: 1;
+    background: var(--surface-3);
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: .7rem;
+    color: var(--muted);
+    text-align: center;
+    border: 1px solid var(--border-subtle);
+  }
+  .store-mock-body {
+    background: #f5f5f5;
+    padding: 20px;
+  }
+  .store-hero-img {
+    background: linear-gradient(135deg, #e0e0e0, #d0d0d0);
+    height: 120px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--gold-dark);
+    letter-spacing: .1em;
+  }
+  .store-products {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 8px;
+  }
+  .store-product {
+    background: #fff;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+  }
+  .store-product .thumb {
+    height: 44px;
+    background: #eee;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    display: flex; align-items:center; justify-content:center;
+    font-size: 1.2rem;
+  }
+  .store-product .name { font-size: .58rem; color: #333; margin-bottom: 4px; font-family:'DM Sans'; }
+  .store-product .price { font-size: .65rem; font-weight: 700; color: #111; font-family:'DM Sans'; }
+
+  .product-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .product-features li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .feat-icon {
+    width: 44px; height: 44px;
+    background: rgba(215,254,45,.1);
+    border: 1px solid rgba(215,254,45,.25);
+    border-radius: 10px;
+    display: flex; align-items:center; justify-content:center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .feat-content h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .feat-content p { font-size: .83rem; color: #888; line-height: 1.5; }
+
+  /* ── WHO IS IT FOR ── */
+  .who-section { background: var(--surface-0); }
+  .who-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .who-card {
+    border-radius: 16px;
+    padding: 36px 32px;
+    background: var(--surface-2);
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  }
+  .who-card.not { border: 1px solid rgba(229,57,53,.2); }
+  .who-card.yes { border: 1px solid rgba(0,230,118,.2); }
+  .who-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    margin-bottom: 24px;
+    letter-spacing: .02em;
+  }
+  .who-card.not h3 { color: #E57373; border-bottom: 2px solid rgba(229,57,53,.3); padding-bottom: 12px; display: inline-block; }
+  .who-card.yes h3 { color: var(--green); border-bottom: 2px solid rgba(0,230,118,.3); padding-bottom: 12px; display: inline-block; }
+  .who-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .who-list li {
+    font-size: .88rem;
+    color: #aaa;
+    line-height: 1.5;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .who-list li:last-child { border-bottom: none; padding-bottom: 0; }
+  .who-list li span { margin-right: 8px; }
+
+  .profit-section {
+    position: relative;
+    overflow: hidden;
+    background: #0b0b0b;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .profit-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 50% 50%, transparent 1.5px, #0b0b0b 0 8px, transparent 8px),
+      radial-gradient(circle at 50% 50%, transparent 1.5px, #0b0b0b 0 8px, transparent 8px),
+      radial-gradient(circle at 50% 50%, #f00, transparent 60%),
+      radial-gradient(circle at 50% 50%, #d7fe2d, transparent 60%),
+      radial-gradient(circle at 50% 50%, #0f0, transparent 60%),
+      radial-gradient(ellipse at 50% 50%, #00f, transparent 60%);
+    background-size:
+      10px 17.32px,
+      10px 17.32px,
+      200% 200%,
+      200% 200%,
+      200% 200%,
+      200% 17.32px;
+    background-position:
+      0 0,
+      5px 8.66px,
+      0% 0%,
+      0% 0%,
+      0% 0%,
+      0% 0%;
+    animation: profit-bg-shift 30s linear infinite, profit-hue 6s linear infinite;
+    opacity: .18;
+    pointer-events: none;
+  }
+  .profit-section > .container {
+    position: relative;
+    z-index: 1;
+  }
+  .profit-inner {
+    margin-top: 36px;
+    background: rgba(17,17,17,.92);
+    border: 1px solid var(--border-emphasis);
+    border-radius: 18px;
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 28px;
+    backdrop-filter: blur(4px);
+  }
+  .profit-controls { display: grid; gap: 20px; }
+  .profit-field label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: .82rem;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .profit-field input[type="range"] { width: 100%; accent-color: var(--gold); }
+  .profit-hint { font-size: .8rem; color: #999; }
+  .profit-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .profit-card {
+    background: var(--surface-3);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .profit-card .k { color: var(--muted); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
+  .profit-card .v { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; line-height: 1; margin-top: 6px; color: #fff; }
+  .profit-card .v.money { color: var(--green); }
+
+  @keyframes profit-bg-shift {
+    from {
+      background-position:
+        0 0,
+        5px 8.66px,
+        800% 400%,
+        1000% -400%,
+        -1200% -600%,
+        400% 17.32px;
+    }
+    to {
+      background-position:
+        0 0,
+        5px 8.66px,
+        0% 0%,
+        0% 0%,
+        0% 0%,
+        0% 0%;
+    }
+  }
+  @keyframes profit-hue {
+    from { filter: hue-rotate(0deg); }
+    to { filter: hue-rotate(360deg); }
+  }
+
+  /* ── PRICING ── */
+  .pricing-section { background: var(--surface-1); }
+  .pricing-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .pricing-value {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  }
+  .pricing-value h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.9rem;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+  .value-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .value-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: .88rem;
+  }
+  .value-list li:last-child { border-bottom: none; }
+  .value-list li .item-name { color: #ccc; display:flex; align-items:center; gap:8px; }
+  .value-list li .item-name::before { content:'✓'; color:var(--green); font-size:.8rem; }
+  .value-list li .item-price { color: var(--muted); font-size: .82rem; }
+  .value-total {
+    background: var(--surface-3);
+    border: 1px solid var(--border-emphasis);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: .85rem;
+    color: #aaa;
+  }
+
+  .pricing-cta { text-align: center; }
+  .pricing-cta-card {
+    display: inline-block;
+    background: var(--surface-2);
+    border: 1px solid var(--border-emphasis);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.3);
+  }
+  .price-old {
+    font-size: 1.1rem;
+    color: var(--red);
+    text-decoration: line-through;
+    margin-bottom: 8px;
+  }
+  .price-new {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5.5rem;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .price-new small { font-family:'Montserrat'; font-size:1.8rem; color:var(--green); }
+  .price-saving {
+    font-size: .85rem;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .price-saving strong { color: var(--gold); }
+  .pricing-note {
+    font-size: .76rem;
+    color: var(--muted);
+    margin-top: 18px;
+    line-height: 1.6;
+  }
+
+  /* ── GUARANTEE ── */
+  .guarantee-section { background: var(--surface-0); }
+  .guarantee-inner {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .guarantee-badge {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background: conic-gradient(from 0deg, var(--gold-dark), var(--gold), #f7ffd1, var(--gold), var(--gold-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 0 50px rgba(215,254,45,.3);
+  }
+  .guarantee-badge-inner {
+    width: 174px; height: 174px;
+    background: var(--surface-2);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .guarantee-badge-inner .days {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4.2rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .guarantee-badge-inner .dias {
+    font-family: 'Montserrat', sans-serif;
+    font-size: .9rem;
+    font-weight: 700;
+    letter-spacing: .15em;
+    color: var(--gold);
+  }
+  .guarantee-badge-inner .guar {
+    font-size: .65rem;
+    color: var(--muted);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .guarantee-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .guarantee-text p {
+    color: #999;
+    font-size: .9rem;
+    line-height: 1.75;
+    margin-bottom: 12px;
+  }
+  .guarantee-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .guarantee-tags span {
+    background: rgba(215,254,45,.08);
+    border: 1px solid rgba(215,254,45,.2);
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-size: .75rem;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ── FAQ ── */
+  .faq-section { background: var(--surface-1); }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 48px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--surface-2);
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: .92rem;
+    font-weight: 600;
+    color: var(--text);
+    text-align: left;
+    transition: background .2s;
+  }
+  .faq-q:hover { background: var(--surface-3); }
+  .faq-q .arrow { color: var(--gold); font-size: .8rem; transition: transform .3s; }
+  .faq-q.open .arrow { transform: rotate(180deg); }
+  .faq-a {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .4s ease;
+  }
+  .faq-a.open { max-height: 200px; }
+  .faq-a-inner {
+    padding: 0 24px 20px;
+    font-size: .88rem;
+    color: #888;
+    line-height: 1.75;
+  }
+
+  /* ── MENTOR ── */
+  .mentor-section {
+    background: linear-gradient(180deg, var(--surface-0) 0%, var(--surface-1) 100%);
+  }
+  .mentor-inner {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .mentor-img-wrap {
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-subtle);
+    background: linear-gradient(135deg, var(--surface-2), var(--surface-1));
+    height: 400px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .mentor-placeholder {
+    width: 180px; height: 320px;
+    background: linear-gradient(180deg, var(--surface-3) 0%, var(--surface-2) 100%);
+    border-radius: 50% 50% 0 0;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 30px;
+  }
+  .mentor-placeholder::before {
+    content: '👤';
+    font-size: 5rem;
+    opacity: .3;
+  }
+  .mentor-name-tag {
+    position: absolute;
+    bottom: 20px; left: 20px; right: 20px;
+    background: rgba(0,0,0,.8);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    backdrop-filter: blur(8px);
+  }
+  .mentor-name-tag .name { font-family:'Montserrat'; font-weight:700; font-size:1rem; color:var(--gold); }
+  .mentor-name-tag .role { font-size:.72rem; color:var(--muted); }
+  .mentor-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+    color: var(--gold);
+  }
+  .mentor-text p {
+    font-size: .9rem;
+    color: #999;
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+  .mentor-stats {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .mentor-stat {
+    text-align: center;
+  }
+  .mentor-stat .val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .mentor-stat .lbl { font-size: .72rem; color: var(--muted); margin-top: 4px; }
+
+  /* ── FOOTER CTA ── */
+  .footer-cta {
+    background: linear-gradient(135deg, var(--surface-1) 0%, var(--surface-0) 100%);
+    text-align: center;
+    padding: 80px 40px;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .footer-cta h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    margin-bottom: 12px;
+  }
+  .footer-cta h2 em { font-style:normal; color: var(--gold); }
+  .footer-cta p { color: var(--muted); margin-bottom: 36px; font-size: .95rem; }
+  .footer-bottom {
+    background: var(--surface-0);
+    padding: 24px 40px;
+    text-align: center;
+    border-top: 1px solid var(--border-subtle);
+    font-size: .75rem;
+    color: var(--muted);
+  }
+  .footer-bottom strong { color: var(--gold); }
+
+  .hl-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 16px;
+  }
+  .hl-modal.open { display: flex; }
+  .hl-modal-content {
+    position: relative;
+    width: min(760px, 96vw);
+    height: min(940px, 96vh);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+  }
+  .hl-modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 3px solid #e7edf2;
+    background: #202832;
+    color: #fff;
+    cursor: pointer;
+    z-index: 2;
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  /* ── FLOATING STICKY ── */
+  .sticky-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(5,5,5,.95);
+    border-top: 1px solid var(--border-subtle);
+    backdrop-filter: blur(12px);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 50;
+    transform: translateY(100%);
+    transition: transform .4s ease;
+  }
+  .sticky-bar.visible { transform: translateY(0); }
+  .sticky-bar .sticky-text { font-size: .85rem; color: #aaa; }
+  .sticky-bar .sticky-text strong { color: var(--gold); }
+  .sticky-bar .sticky-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--green);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    section { padding: 64px 20px; }
+    .bar { font-size: .68rem; padding: 8px 12px; }
+
+    .hero { min-height: auto; }
+    .hero-inner { padding: 26px 20px 56px; }
+    .hero h1 { font-size: clamp(2.2rem, 11vw, 3.7rem); line-height: .95; }
+    .hero-sub { font-size: .92rem; }
+    .hero-checks li { font-size: .86rem; }
+    .hero-orders, .hero-glow, .hero-noise { display: none; }
+    .btn-main { width: 100%; text-align: center; padding: 16px 20px; font-size: .92rem; }
+
+    .hero-inner, .proof-inner, .pricing-inner, .product-inner, .mentor-inner, .who-grid, .guarantee-inner {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .steps-grid { grid-template-columns: 1fr; gap: 16px; margin-top: 32px; }
+    .proof-inner, .pricing-value, .pricing-cta-card, .who-card { padding: 22px; }
+
+    .testi-carousel-wrapper { margin-top: 28px; }
+    .testi-slide { flex: 0 0 85%; }
+    .testi-img { width: 100%; }
+    .carousel-nav { position: static; transform: none; margin-top: 14px; justify-content: center; gap: 10px; }
+
+    .store-products { grid-template-columns: repeat(2, 1fr); }
+    .profit-inner { grid-template-columns: 1fr; padding: 20px; gap: 16px; }
+    .profit-card .v { font-size: 1.8rem; }
+
+    .value-list li { font-size: .8rem; gap: 8px; }
+    .price-new { font-size: 4.1rem; }
+
+    .faq-q { padding: 16px 18px; font-size: .84rem; }
+    .faq-a-inner { padding: 0 18px 16px; font-size: .82rem; }
+
+    .mentor-img-wrap { height: 320px; }
+
+    .sticky-bar {
+      padding: 10px 14px;
+      gap: 10px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+    }
+    .sticky-bar .sticky-text { grid-column: 1 / -1; font-size: .75rem; }
+    .sticky-bar .sticky-price { font-size: 1.5rem; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-inner { padding-top: 18px; }
+    .section-title { font-size: clamp(1.8rem, 10vw, 2.6rem); }
+    .proof-text h2, .mentor-text h2, .guarantee-text h2 { font-size: 2rem; }
+
+    .testi-slide { flex: 0 0 100%; }
+    .carousel-dots { margin-top: 14px; }
+
+    .pricing-cta-card { width: 100%; padding: 24px 18px; }
+    .price-new { font-size: 3.6rem; }
+
+    .footer-cta { padding: 56px 20px 90px; }
+    .footer-bottom { padding: 18px 20px 88px; }
+
+    .hl-modal { padding: 8px; }
+    .hl-modal-content { width: 100%; height: calc(100vh - 16px); }
+    .hl-modal-close { width: 36px; height: 36px; transform: translate(15%, -35%); }
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="bar" id="announcement-bar">
+  ⚡ 7 VAGAS DISPONÍVEIS HOJE — COM R$1.000 DE DESCONTO
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <h1>Tenha Sua <em>Loja Gringa</em><br>Pronta e Chegue a<br>Até <em>US$1.000</em><br>em Vendas Já na<br><em>Próxima Semana</em></h1>
+      <p class="hero-sub">Venda $10.000 em 120 dias ou eu te faço um PIX de R$100.</p>
+      <ul class="hero-checks">
+        <li>Mesmo se estiver saindo do zero</li>
+        <li>Mesmo sem saber inglês</li>
+        <li>Gastando menos de 2 horas do seu dia</li>
+      </ul>
+      <button class="btn-main" onclick="openPopup(event)">Quero Minha Loja Agora! →</button>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="steps-section">
+  <div class="container">
+    <p class="section-label">Como funciona</p>
+    <h2 class="section-title">Você só precisa seguir<br>esses <em style="color:var(--gold);font-style:normal;">3 Passos Simples</em></h2>
+    <div class="steps-grid">
+      <div class="step-card fade-in">
+        <span class="step-num">01</span>
+        <span class="step-icon">👤</span>
+        <h3>Passo 01: Se Inscreva</h3>
+        <p>Se inscreva no Loja Vencedora com um desconto de R$400,00 (isso dá menos de 50 centavos por dia!). Acesso imediato após o pagamento.</p>
+      </div>
+      <div class="step-card fade-in">
+        <span class="step-num">02</span>
+        <span class="step-icon">🏪</span>
+        <h3>Passo 02: Receba sua Loja</h3>
+        <p>Receba sua <strong>Loja Gringa Profissional</strong>, criada automaticamente por nossa <strong>IA em poucos minutos</strong>, já pronta para vender em dólar.</p>
+      </div>
+      <div class="step-card fade-in">
+        <span class="step-num">03</span>
+        <span class="step-icon">🚀</span>
+        <h3>Passo 03: Execute e Venda</h3>
+        <p>Siga o <strong>passo a passo validado</strong> para colocar a loja em funcionamento e buscar suas primeiras vendas em dólar <strong>ainda essa semana</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="proof-section bg-wave bg-wave-gold">
+  <div class="container">
+    <div class="proof-inner fade-in">
+      <div>
+        <div class="dashboard-mock" style="padding:0; overflow:hidden;">
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/1NbRXEFqlptYITlRbhED/media/6983961d26ea643e24a6c972.jpeg" alt="Dashboard" style="width:100%; height:auto; display:block;">
+        </div>
+      </div>
+      <div class="proof-text">
+        <img src="https://dswa1xdat8uez.cloudfront.net/27bss%2Fpreview%2F76925779%2Fmain_large.png?response-content-disposition=inline%3Bfilename%3D%22main_large.png%22%3B&response-content-type=image%2Fpng&Expires=1775490009&Signature=Vt7alEfLaiPOF2DMlYyOVKMBbu6AZwUz-vkyUUUGwSO2~pUDOqa6ncIfygNA2HQ3KXVnQCbJWSaveGko1ylTxIVONkphMfFRwApf6K9ePXnHsKoOsCeaZzn5TlOM2RIuiuhPyRDfa2daV3xM6F8q4sXCh9qQ677Evtd8WOOhbgJzGF0bmOvebpOXBZU8hEwV4kFduH1aCfAk1~hKcv9LG6HyOUKMupIN1-LexSy1NA4NfAG9-uxw-y6b-alN5E9UQYDXZM0laEsjUwnCzp6OZIhoIH3b8LQHceFYPxCbRxEKpM6JK23yHWTl50mc1VLiFhE35TNnGnb-Dj6SSkwRSw__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ" alt="Logo Loja Vencedora" style="display:block;width:100%;max-width:200px;height:auto;margin:0 0 12px;">
+        <p class="section-label">Resultados Reais</p>
+        <h2>Depois que eu vendi <em>+US$2 Milhões</em> e ensinei centenas a faturar seus primeiros 6 dígitos…</h2>
+        <p>Entendi exatamente por que a maioria das pessoas <strong>não consegue ter resultado no dropshipping</strong>.</p>
+        <p>Não é falta de vontade. Não é falta de esforço.</p>
+        <ul class="proof-bullets">
+          <li>90% travam no ponto mais importante: <strong>a criação da loja</strong></li>
+          <li>Uma loja mal feita mata qualquer chance de venda, mesmo com um bom produto</li>
+          <li>Cada aluno recebe uma <strong>Loja Gringa Profissional criada por IA</strong>, pronta para vender em dólar</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="container">
+    <p class="section-label" style="text-align:center;">Prova Social</p>
+    <h2 class="section-title" style="text-align:center;">Resultado <em style="color:var(--gold);font-style:normal;text-decoration:underline;text-underline-offset:6px">Incrível</em> de Alguns Alunos</h2>
+    <div class="testi-carousel-wrapper">
+      <div class="testi-carousel" id="testi-carousel">
+        <div class="testi-slide"><img src="https://storage.googleapis.com/msgsndr/1NbRXEFqlptYITlRbhED/media/696a74064e42b903013a4734.png" alt="Prova Social 1" class="testi-img"></div>
+        <div class="testi-slide"><img src="https://storage.googleapis.com/msgsndr/1NbRXEFqlptYITlRbhED/media/696a7406e125ef1f0c96ba19.png" alt="Prova Social 2" class="testi-img"></div>
+        <div class="testi-slide"><img src="https://storage.googleapis.com/msgsndr/1NbRXEFqlptYITlRbhED/media/696a7406eb2da75dd8b8e61a.png" alt="Prova Social 3" class="testi-img"></div>
+        <div class="testi-slide"><img src="https://storage.googleapis.com/msgsndr/1NbRXEFqlptYITlRbhED/media/696a740665d73d6663025dae.png" alt="Prova Social 4" class="testi-img"></div>
+        <div class="testi-slide"><img src="https://storage.googleapis.com/msgsndr/1NbRXEFqlptYITlRbhED/media/696a7406b34b647bbd121683.png" alt="Prova Social 5" class="testi-img"></div>
+      </div>
+      <div class="carousel-nav">
+        <button class="nav-btn prev" onclick="moveCarousel(-1)">❮</button>
+        <button class="nav-btn next" onclick="moveCarousel(1)">❯</button>
+      </div>
+      <div class="carousel-dots" id="carousel-dots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT / STORE -->
+<section class="product-section bg-wave bg-wave-soft">
+  <div class="container">
+    <div class="product-inner">
+      <div>
+        <img src="https://storage.googleapis.com/msgsndr/1NbRXEFqlptYITlRbhED/media/69839a9013fe2b0237a13998.png" alt="Loja Gringa Pronta" style="width:100%; border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,.5); border:1px solid var(--border);">
+      </div>
+      <div>
+        <p class="section-label">Loja Profissional Completa</p>
+        <h2 class="section-title">Eu quero que você saia na frente de <em style="color:var(--gold);font-style:normal;">95% das pessoas</em></h2>
+        <ul class="product-features">
+          <li>
+            <div class="feat-icon">📦</div>
+            <div class="feat-content">
+              <h4>20 Produtos Selecionados a Dedo</h4>
+              <p>Você vai receber 20 produtos vencedores já com uma descrição matadora feita para converter.</p>
+            </div>
+          </li>
+          <li>
+            <div class="feat-icon">🎨</div>
+            <div class="feat-content">
+              <h4>Tema Exclusivo de $300</h4>
+              <p>Utilizamos um tema americano de 300 dólares para aumentar em 30% nossa conversão.</p>
+            </div>
+          </li>
+          <li>
+            <div class="feat-icon">💎</div>
+            <div class="feat-content">
+              <h4>Identidade Visual Personalizada</h4>
+              <p>3 banners exclusivos + uma logo desenvolvida pelo nosso time de designers profissionais.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IS IT FOR -->
+<section class="who-section">
+  <div class="container">
+    <p class="section-label">Público Alvo</p>
+    <h2 class="section-title">Para Quem É Este Programa?</h2>
+    <div class="who-grid">
+      <div class="who-card not fade-in">
+        <h3>Para Quem Não É</h3>
+        <ul class="who-list">
+          <li><span>🔒</span>Quem quer trabalhar como CLT e seguir regras e horários exaustivos</li>
+          <li><span>💸</span>Quem desiste fácil e desperdiça ótimas oportunidades como essa</li>
+          <li><span>😴</span>Quem acha que vai mudar de vida do dia pra noite sem se comprometer</li>
+          <li><span>⚫</span>Quem quer viver uma vida medíocre e não assume riscos para ter uma vida melhor</li>
+        </ul>
+      </div>
+      <div class="who-card yes fade-in">
+        <h3>Para Quem Realmente É</h3>
+        <ul class="who-list">
+          <li><span>📅</span>Quem quer aproveitar o melhor momento para começar sua loja e vender ainda essa semana</li>
+          <li><span>💰</span>Quem quer começar agora investindo pouco de forma segura, honesta e sem precisar aparecer</li>
+          <li><span>🦁</span>Quem cansou de procrastinar e está disposto a seguir um passo a passo simples e eficaz</li>
+          <li><span>🖥️</span>Quem quer parar de enrolar e mudar de vida de uma vez por todas com a internet</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="profit-section">
+  <div class="container">
+    <p class="section-label" style="text-align:center;">Simulação de Resultado</p>
+    <h2 class="section-title" style="text-align:center;">Veja Quanto Você Pode Fazer<br><em style="color:var(--gold);font-style:normal;">No Fim do Mês</em></h2>
+    <div class="profit-inner fade-in" id="profit-calc">
+      <div class="profit-controls">
+        <div class="profit-field">
+          <label>Vendas por dia <strong id="sales-day-val">3</strong></label>
+          <input id="sales-day" type="range" min="1" max="20" value="3">
+        </div>
+        <div class="profit-field">
+          <label>Ticket médio por venda (US$) <strong id="ticket-val">30</strong></label>
+          <input id="ticket" type="range" min="10" max="150" value="30" step="5">
+        </div>
+        <p class="profit-hint">Exemplo: 3 vendas por dia x US$30 por venda = US$90 por dia.</p>
+      </div>
+      <div class="profit-cards">
+        <div class="profit-card"><div class="k">Vendas no dia</div><div class="v" id="daily-sales">3</div></div>
+        <div class="profit-card"><div class="k">Faturamento diário</div><div class="v money" id="daily-revenue">US$ 90</div></div>
+        <div class="profit-card"><div class="k">Vendas no mês (30 dias)</div><div class="v" id="monthly-sales">90</div></div>
+        <div class="profit-card"><div class="k">Faturamento no mês</div><div class="v money" id="monthly-revenue">US$ 2,700</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section bg-wave bg-wave-gold" id="pricing">
+  <div class="container">
+    <p class="section-label" style="text-align:center;">Investimento</p>
+    <h2 class="section-title" style="text-align:center;margin-bottom:48px;">Quanto Será que Vale <em style="color:var(--gold);font-style:normal;">Tudo Isso?</em></h2>
+    <div class="pricing-inner fade-in">
+      <div class="pricing-value">
+        <h3>O Que Você Recebe:</h3>
+        <ul class="value-list">
+          <li><span class="item-name">Treinamento Loja Vencedora</span><span class="item-price">R$497,00</span></li>
+          <li><span class="item-name">Loja Gringa Pronta</span><span class="item-price">R$300,00</span></li>
+          <li><span class="item-name">20 Produtos Vencedores</span><span class="item-price">R$197,00</span></li>
+          <li><span class="item-name">3 Banners + Logo Personalizada</span><span class="item-price">R$189,00</span></li>
+          <li><span class="item-name">Suporte personalizado</span><span class="item-price">Incluso</span></li>
+          <li><span class="item-name">Garantia condicional de 120 dias</span><span class="item-price">Incluso</span></li>
+        </ul>
+        <div class="value-total">
+          Total: R$497 (Loja Vencedora) + R$686 (Bônus Exclusivos) = <strong style="color:var(--gold)">R$1.183,00</strong>
+        </div>
+      </div>
+
+      <div class="pricing-cta">
+        <div class="pricing-cta-card">
+          <img src="https://dswa1xdat8uez.cloudfront.net/27bss%2Fpreview%2F76925779%2Fmain_large.png?response-content-disposition=inline%3Bfilename%3D%22main_large.png%22%3B&response-content-type=image%2Fpng&Expires=1775490009&Signature=Vt7alEfLaiPOF2DMlYyOVKMBbu6AZwUz-vkyUUUGwSO2~pUDOqa6ncIfygNA2HQ3KXVnQCbJWSaveGko1ylTxIVONkphMfFRwApf6K9ePXnHsKoOsCeaZzn5TlOM2RIuiuhPyRDfa2daV3xM6F8q4sXCh9qQ677Evtd8WOOhbgJzGF0bmOvebpOXBZU8hEwV4kFduH1aCfAk1~hKcv9LG6HyOUKMupIN1-LexSy1NA4NfAG9-uxw-y6b-alN5E9UQYDXZM0laEsjUwnCzp6OZIhoIH3b8LQHceFYPxCbRxEKpM6JK23yHWTl50mc1VLiFhE35TNnGnb-Dj6SSkwRSw__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ" alt="Logo Loja Vencedora" style="display:block;width:100%;max-width:180px;height:auto;margin:0 auto 14px;">
+          <div style="text-align:center;margin-bottom:20px;">
+            <div style="font-family:'Bebas Neue';font-size:1.2rem;letter-spacing:.1em;color:var(--muted);">LOJA PRONTA + LOJA VENCEDORA</div>
+          </div>
+          <div class="price-old">De R$ 1.183,00</div>
+          <div class="price-new"><small>R$</small>17<small>,00</small></div>
+          <div class="price-saving">Você Economiza mais de <strong>R$1.000</strong></div>
+          <button class="btn-main" onclick="openPopup(event)" style="width:100%;">QUERO ENTRAR SEM RISCOS</button>
+          <div class="hero-card-trust" style="margin-top:16px;">
+            <span>⚡ Acesso imediato</span>
+            <span>⭐ Loja Profissional</span>
+            <span>🛡️ 120 dias</span>
+          </div>
+          <p class="pricing-note">Oferta especial válida por tempo<br>extremamente limitado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="guarantee-section">
+  <div class="container">
+    <div class="guarantee-inner fade-in">
+      <div>
+        <div class="guarantee-badge">
+          <div class="guarantee-badge-inner">
+            <div class="days">120</div>
+            <div class="dias">DIAS</div>
+            <div class="guar">Garantia</div>
+          </div>
+        </div>
+      </div>
+      <div class="guarantee-text">
+        <h2>GARANTIA DE 120 DIAS!</h2>
+        <p>Se você <strong>não conseguir avançar rumo aos seus primeiros resultados em dólar</strong> dentro de 120 dias, aplicando corretamente o que é ensinado, <strong>eu devolvo 100% do valor investido</strong>.</p>
+        <p>Eu tenho tanta confiança na Loja Gringa Profissional criada pela nossa IA junto com o Método Loja Vencedora, que faço esse compromisso com você. Aqui não tem letras miúdas.</p>
+        <p>Não tem burocracia. Não tem conversa difícil. Se você seguir o passo a passo e não tiver resultados, <strong>é simples: seu investimento é devolvido</strong>.</p>
+        <div class="guarantee-tags">
+          <span>✅ Sem burocracia</span>
+          <span>✅ Sem letras miúdas</span>
+          <span>✅ O risco fica comigo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENTOR -->
+<section class="mentor-section bg-wave bg-wave-deep">
+  <div class="container">
+    <div class="mentor-inner">
+      <div>
+        <div class="mentor-img-wrap">
+          <img src="https://i.imgur.com/Wcy0B7U.jpeg" alt="Gabriel Silva" style="width:100%; height:100%; object-fit:cover; position:absolute; inset:0;">
+          <div class="mentor-name-tag" style="z-index: 2;">
+            <div class="name">Gabriel Silva</div>
+          </div>
+        </div>
+      </div>
+      <div class="mentor-text">
+        <p class="section-label">Quem Será Seu Mentor?</p>
+        <h2>Meu Nome é<br>Gabriel Silva</h2>
+        <p>Atuo há anos no mercado de <strong>e-commerce e vendas online</strong>, ajudando pessoas comuns a construírem negócios digitais de forma prática, profissional e sustentável.</p>
+        <p>Assim como muitos que chegam até aqui, eu também comecei do zero, aprendendo na prática o que realmente funciona para vender online <strong>sem depender de estoque, grandes investimentos ou estruturas complicadas</strong>.</p>
+        <p>Foi exatamente por isso que eu criei o <strong>Loja Vencedora</strong>: para eliminar as maiores barreiras de entrada e permitir que você comece do jeito certo desde o primeiro dia.</p>
+        <div class="mentor-stats">
+          <div class="mentor-stat"><div class="val">+US$2M</div><div class="lbl">Vendido em dólar</div></div>
+          <div class="mentor-stat"><div class="val">100s</div><div class="lbl">Alunos com resultado</div></div>
+          <div class="mentor-stat"><div class="val">120d</div><div class="lbl">Garantia real</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section bg-wave bg-wave-soft">
+  <div class="container">
+    <p class="section-label" style="text-align:center;">Tire suas dúvidas</p>
+    <h2 class="section-title" style="text-align:center;">Dúvidas Frequentes sobre<br><em style="color:var(--gold);font-style:normal;">o Loja Vencedora</em></h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Sou iniciante, o treinamento é pra mim também?
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Sim. O Dólar Orgânico foi criado <strong>pensando justamente em quem está começando do zero</strong>. Você não precisa ter experiência com e-commerce, vendas ou marketing. A loja é criada por IA e o método mostra o caminho passo a passo, de forma simples.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Tenho pouco dinheiro para investir, serve pra mim?
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Funciona sim. O método foi estruturado para <strong>não depender de anúncios pagos</strong>. Você começa com uma loja pronta e aprende estratégias orgânicas, evitando grandes investimentos iniciais.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Por quanto tempo vou ter acesso ao Dólar Orgânico?
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Você terá <strong>1 ano completo de acesso</strong> ao Dólar Orgânico a partir da data da compra. Esse tempo é mais do que suficiente pra aplicar o método, estruturar sua loja e buscar resultados.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Tenho alguma garantia?
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Sim. Você conta com uma <strong>garantia de 120 dias</strong>. Se você aplicar o método corretamente e não avançar nos resultados dentro desse período, pode solicitar o reembolso do valor investido.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Preciso saber algo de marketing, dropshipping ou vendas?
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Não. Todo o processo foi pensado para quem <strong>não tem conhecimento técnico</strong>. O método ensina o que fazer, quando fazer e como fazer, sem complicação.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Em qual plataforma vocês criam a Loja?
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">A loja é criada em uma <strong>plataforma profissional de e-commerce</strong>, utilizada globalmente, com foco em vendas internacionais e em dólar. Você recebe tudo configurado, sem precisar mexer em código ou design.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Como eu faço pra começar?
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">É simples:<br><br>Você garante o acesso ao Dólar Orgânico<br>Recebe sua <strong>Loja Gringa criada por IA</strong><br>Segue o método orgânico para colocar a loja em funcionamento<br>Todo o processo é guiado desde o primeiro passo.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Posso vender meus próprios produtos?
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Sim. O método permite tanto trabalhar com produtos já validados quanto <strong>adaptar a loja para vender produtos próprios</strong>, caso você deseje no futuro.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<div class="footer-cta">
+  <div class="container">
+    <h2>Garanta Sua <em>Loja Gringa</em><br>Ainda Hoje</h2>
+    <p>Oferta válida somente hoje · R$17 · Garantia de 120 dias · Acesso imediato</p>
+    <button class="btn-main" onclick="openPopup(event)" style="font-size:1.05rem;padding:20px 52px;">QUERO ENTRAR SEM RISCOS →</button>
+    <div class="hero-card-trust" style="margin-top:20px;justify-content:center;">
+      <span>⚡ Acesso imediato</span>
+      <span>⭐ Loja Profissional + Treinamento</span>
+      <span>🛡️ Garantia de 120 dias</span>
+    </div>
+  </div>
+</div>
+
+<div class="footer-bottom">
+  © 2026 <strong>Gabriel Silva</strong> | Todos os direitos reservados · Gabriel Silva Negócios Digitais
+</div>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar" id="sticky-bar">
+  <div class="sticky-text"><img src="https://dswa1xdat8uez.cloudfront.net/27bss%2Fpreview%2F76925779%2Fmain_large.png?response-content-disposition=inline%3Bfilename%3D%22main_large.png%22%3B&response-content-type=image%2Fpng&Expires=1775490009&Signature=Vt7alEfLaiPOF2DMlYyOVKMBbu6AZwUz-vkyUUUGwSO2~pUDOqa6ncIfygNA2HQ3KXVnQCbJWSaveGko1ylTxIVONkphMfFRwApf6K9ePXnHsKoOsCeaZzn5TlOM2RIuiuhPyRDfa2daV3xM6F8q4sXCh9qQ677Evtd8WOOhbgJzGF0bmOvebpOXBZU8hEwV4kFduH1aCfAk1~hKcv9LG6HyOUKMupIN1-LexSy1NA4NfAG9-uxw-y6b-alN5E9UQYDXZM0laEsjUwnCzp6OZIhoIH3b8LQHceFYPxCbRxEKpM6JK23yHWTl50mc1VLiFhE35TNnGnb-Dj6SSkwRSw__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ" alt="Logo Loja Vencedora" style="display:block;max-width:260px;width:100%;height:auto;"></div>
+  <div class="sticky-price">R$17</div>
+  <button class="btn-main" onclick="openPopup(event)" style="padding:12px 28px;font-size:.85rem;">GARANTIR VAGA</button>
+</div>
+
+<!-- HIGH LEVEL POPUP -->
+<div class="hl-modal" id="hl-modal" aria-hidden="true">
+  <div class="hl-modal-content" role="dialog" aria-modal="true" aria-label="Formulário de inscrição">
+    <button class="hl-modal-close" type="button" onclick="closePopup()">×</button>
+    <iframe src="about:blank" data-src="https://api.leadconnectorhq.com/widget/form/urMPTV18axu8cTXCXfgi" style="width:100%;height:100%;border:none;border-radius:0;display:block;" id="popup-urMPTV18axu8cTXCXfgi" title="F06 17 - LP - LUIS PACHECO"></iframe>
+  </div>
+</div>
+
+<script>
+  function openPopup(event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    const modal = document.getElementById('hl-modal');
+    const iframe = document.getElementById('popup-urMPTV18axu8cTXCXfgi');
+    if (iframe && iframe.src === 'about:blank') {
+      iframe.src = iframe.dataset.src;
+    }
+    if (modal) {
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closePopup() {
+    const modal = document.getElementById('hl-modal');
+    if (modal) {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePopup();
+  });
+
+  const announcementBar = document.getElementById('announcement-bar');
+  if (announcementBar) {
+    const now = new Date();
+    const weekDay = new Intl.DateTimeFormat('pt-BR', { weekday: 'long' }).format(now).toUpperCase();
+    const fullDate = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }).format(now).toUpperCase();
+    announcementBar.textContent = `⚡ 7 VAGAS DISPONÍVEIS HOJE - ${weekDay}, ${fullDate} - COM R$1.000 DE DESCONTO`;
+  }
+
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  fadeEls.forEach(el => observer.observe(el));
+
+  // sticky bar
+  const sticky = document.getElementById('sticky-bar');
+  window.addEventListener('scroll', () => {
+    sticky.classList.toggle('visible', window.scrollY > 600);
+  });
+
+  // carousel logic
+  const carousel = document.getElementById('testi-carousel');
+  const dotsContainer = document.getElementById('carousel-dots');
+  let currentSlide = 0;
+  
+  if (carousel) {
+    const slides = carousel.querySelectorAll('.testi-img');
+    const totalSlides = slides.length;
+    
+    function getItemsPerView() {
+      if (window.innerWidth <= 600) return 1;
+      if (window.innerWidth <= 900) return 2;
+      return 3;
+    }
+
+    function createDots() {
+      dotsContainer.innerHTML = '';
+      const itemsPerView = getItemsPerView();
+      const numDots = Math.ceil(totalSlides / itemsPerView);
+      
+      for (let i = 0; i < numDots; i++) {
+        const dot = document.createElement('div');
+        dot.className = `dot ${i === 0 ? 'active' : ''}`;
+        dot.onclick = () => goToSlide(i);
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    createDots();
+    let dots = document.querySelectorAll('.dot');
+
+    window.addEventListener('resize', () => {
+      createDots();
+      dots = document.querySelectorAll('.dot');
+      goToSlide(0);
+    });
+
+    window.moveCarousel = (dir) => {
+      const itemsPerView = getItemsPerView();
+      const numDots = Math.ceil(totalSlides / itemsPerView);
+      currentSlide = (currentSlide + dir + numDots) % numDots;
+      updateCarousel();
+    };
+
+    window.goToSlide = (index) => {
+      currentSlide = index;
+      updateCarousel();
+    };
+
+    function updateCarousel() {
+      const itemsPerView = getItemsPerView();
+      const scrollAmount = currentSlide * carousel.clientWidth;
+      carousel.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
+    }
+  }
+
+  const salesDayInput = document.getElementById('sales-day');
+  const ticketInput = document.getElementById('ticket');
+
+  if (salesDayInput && ticketInput) {
+    const salesDayVal = document.getElementById('sales-day-val');
+    const ticketVal = document.getElementById('ticket-val');
+    const dailySalesEl = document.getElementById('daily-sales');
+    const dailyRevenueEl = document.getElementById('daily-revenue');
+    const monthlySalesEl = document.getElementById('monthly-sales');
+    const monthlyRevenueEl = document.getElementById('monthly-revenue');
+
+    function formatUsd(value) {
+      return `US$ ${value.toLocaleString('en-US')}`;
+    }
+
+    function updateProfit() {
+      const salesDay = Number(salesDayInput.value);
+      const ticket = Number(ticketInput.value);
+      const dailyRevenue = salesDay * ticket;
+      const monthlySales = salesDay * 30;
+      const monthlyRevenue = dailyRevenue * 30;
+
+      salesDayVal.textContent = salesDay;
+      ticketVal.textContent = ticket;
+      dailySalesEl.textContent = salesDay;
+      dailyRevenueEl.textContent = formatUsd(dailyRevenue);
+      monthlySalesEl.textContent = monthlySales.toLocaleString('pt-BR');
+      monthlyRevenueEl.textContent = formatUsd(monthlyRevenue);
+    }
+
+    salesDayInput.addEventListener('input', updateProfit);
+    ticketInput.addEventListener('input', updateProfit);
+    updateProfit();
+  }
+
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-a.open').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-q.open').forEach(b => b.classList.remove('open'));
+    if (!isOpen) {
+      answer.classList.add('open');
+      btn.classList.add('open');
+    }
+  }
+</script>
+</body>
+</html>
